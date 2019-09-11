@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+	<h:form id="frm">
+
+		<p:commandButton value="Nuevo" oncomplete="PF('wdlgContrato').show();"
+			actionListener="#{contratoBean.limpiarControles()}"
+			update="frm:dlgContrato" />
+
+		<p:dataTable value="#{contratoBean.lstContratos}" var="c">
+			<p:column headerText="Persona">
+				<p:outputLabel value="#{c.persona.nombreCompleto}" />
+			</p:column>
+
+			<p:column headerText="Puesto">
+				<p:outputLabel value="#{c.puesto.nombre}" />
+			</p:column>
+
+			<p:column headerText="Fecha Inicio">
+				<p:outputLabel value="#{c.fechaInicio}">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</p:outputLabel>
+			</p:column>
+
+			<p:column headerText="Fecha Fin">
+				<p:outputLabel value="#{c.fechaFin}">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</p:outputLabel>
+			</p:column>
+
+			<p:column headerText="Estado" style="width: 60px">
+				<p:outputLabel >					
+					<f:converter converterId="estadoConverter"/>					
+					<p:graphicImage library="images" name="check.jpg" rendered="#{c.estado eq '1'}" style="margin-left: 5px;"/>
+					<p:graphicImage library="images" name="close.png" rendered="#{c.estado eq '0'}" style="margin-left: 5px;"/>										
+				</p:outputLabel>
+			</p:column>
+			
+			<p:column>
+				<p:commandLink actionListener="#{contratoBean.seleccionar(c)}" oncomplete="PF('wdlgContrato').show();" update="frm:dlgContrato">
+					<p:graphicImage library="images" name="edit.jpg"/>
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+
+		<p:dialog id="dlgContrato" widgetVar="wdlgContrato" modal="true"
+			closeOnEscape="true" resizable="false">
+			<h:panelGrid columns="2">
+				<p:selectOneMenu value="#{contratoBean.persona}"
+					converter="omnifaces.SelectItemsConverter">
+					<f:selectItem itemLabel="--Seleccione--" itemValue="#{null}"
+						noSelectionOption="true" />
+					<f:selectItems value="#{contratoBean.lstPersonas}" var="per"
+						itemLabel="#{per.nombreCompleto}" itemValue="#{per}" />
+				</p:selectOneMenu>
+
+				<p:selectOneMenu value="#{contratoBean.puesto}"
+					converter="omnifaces.SelectItemsConverter">
+					<f:selectItem itemLabel="--Seleccione--" itemValue="#{null}"
+						noSelectionOption="true" />
+					<f:selectItems value="#{contratoBean.lstPuestos}" var="pue"
+						itemLabel="#{pue.nombre}" itemValue="#{pue}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Fecha Inicio" />
+				<p:calendar value="#{contratoBean.contrato.fechaInicio}" />
+
+				<p:outputLabel value="Fecha Fin" />
+				<p:calendar value="#{contratoBean.contrato.fechaFin}" />
+
+				<p:outputLabel value="Salario" />
+				<p:spinner value="#{contratoBean.contrato.salario}" />				
+			</h:panelGrid>
+			
+			<h:panelGroup layout="block" style="float: right">
+				<p:commandButton value="Aceptar" actionListener="#{contratoBean.registrar()}" ajax="false" action="contrato?faces-redirect=true" />
+				<p:commandButton value="Cancelar" immediate="true" onclick="PF('wdlgContrato').hide();" />
+			</h:panelGroup>
+		</p:dialog>
+	</h:form>
+</body>
+</html>
