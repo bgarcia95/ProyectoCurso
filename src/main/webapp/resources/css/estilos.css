@@ -1,3 +1,16 @@
+/*Centra la página web*/
+.resolucion {     
+    width: 800px; 
+    margin: 0 auto;            
+}
+
+.ui-widget {
+    font-size: 82% !important;
+}
+.ui-widget .ui-widget {
+    font-size: 100% !important;
+}
+
 .tablaSinCabecera table thead tr {
 	display: none;
 }
@@ -8,3 +21,18 @@
 	color: #4f4f4f;
 	height: 35px;
 }
+
+.logoEmpresa{
+    width: 10%;
+    position: relative;
+    margin-top: -6%;
+    float: right;
+}
+
+.logoMitoCode{
+    width: 8%;
+    position: relative;
+    margin-top: -6%;
+    float: left;
+}
+

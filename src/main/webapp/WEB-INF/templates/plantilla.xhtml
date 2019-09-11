@@ -3,18 +3,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html">
 <h:head>
-<title><ui:insert name="title">Gestor de Contratos</ui:insert></title>
+	<title><ui:insert name="title">Gestor de Contratos</ui:insert></title>
 	<h:outputScript name="script.js" library="js" />
 	<h:outputScript name="calendar.js" library="js" />
 	<h:outputStylesheet name="estilos.css" library="css" />
 </h:head>
 
-<body>
+<h:body styleClass ="resolucion">
 
 	<ui:insert name="header">
-		Cabecera por defecto
+		<h:form id="frmMenu">
+			<p:menubar autoDisplay="false" style="width: 735px;" >
+				<p:menuitem icon="ui-icon-home" value="Inicio" action="index?faces-redirect=true" />
+				<p:menuitem icon="ui-icon-person" value="Puestos" action="puesto?faces-redirect=true" />
+				<p:menuitem icon="ui-icon-document" value="Contrato" action="contrato?faces-redirect=true" />
+			</p:menubar>
+			<p:commandButton action="config?faces-redirect=true" icon="ui-icon-gear" style="height:42px;float:rigth;margin-top: -42px;" />
+		</h:form>
 	</ui:insert>
 
 
@@ -24,8 +31,8 @@
 
 	<ui:insert name="footer">
 		<p:cache>
-			<div>Desarrollado por Jaime Medina Delgado</div>
-			<div>Copyright © MitoCode, 20177. Todos los derechos reservados</div>
+			<div>Desarrollado por Brayan Daniel Garcia</div>
+			<div>Copyright © MitoCode, 2019. Todos los derechos reservados</div>
 			<div>
 				<a href="http://www.facebook.com/mitocode" target="_blank">Facebook</a>
 				<a href="http://www.youtube.com/mitocode" target="_blank">Youtube</a>
@@ -35,6 +42,6 @@
 	</ui:insert>
 
 
-</body>
+</h:body>
 
 </html>
